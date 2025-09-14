@@ -15,5 +15,5 @@ public interface IGenericRepository<T> where T : class
 
     Task<ActionResponse<T>> UpdateAsync(T entity);
 
-    Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate); // 1
+    Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate);
 }

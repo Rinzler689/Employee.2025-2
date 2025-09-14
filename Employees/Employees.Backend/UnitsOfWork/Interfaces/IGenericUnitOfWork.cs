@@ -15,5 +15,5 @@ public interface IGenericUnitOfWork<T> where T : class
 
     Task<ActionResponse<T>> DeleteAsync(int id);
 
-    Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate);//3
+    Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate);
 }

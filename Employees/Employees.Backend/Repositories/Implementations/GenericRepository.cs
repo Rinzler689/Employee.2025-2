@@ -105,7 +105,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public async Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate) //2
+    public async Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate)
     {
         try
         {
