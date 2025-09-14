@@ -2,6 +2,7 @@
 using Employees.Backend.Repositories.Interfaces;
 using Employees.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Employees.Backend.Repositories.Implementations;
 
@@ -27,10 +28,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 WasSuccess = true,
                 Result = entity
             };
-        }
-        catch (DbUpdateException)
-        {
-            return DbUpdateExceptionActionResponse();
         }
         catch (Exception exception)
         {
@@ -102,23 +99,35 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 Result = entity
             };
         }
-        catch (DbUpdateException)
-        {
-            return DbUpdateExceptionActionResponse();
-        }
         catch (Exception exception)
         {
             return ExceptionActionRespose(exception);
         }
     }
 
+    public async Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate) //2
+    {
+        try
+        {
+            var results = await _context.Set<T>().Where(predicate).ToListAsync();
+            return new ActionResponse<IEnumerable<T>>
+            {
+                WasSuccess = true,
+                Result = results
+            };
+        }
+        catch (Exception ex)
+        {
+            return new ActionResponse<IEnumerable<T>>
+            {
+                WasSuccess = false,
+                Message = ex.Message
+            };
+        }
+    }
+
     private ActionResponse<T> ExceptionActionRespose(Exception exception) => new ActionResponse<T>
     {
         Message = exception.Message
-    };
-
-    private ActionResponse<T> DbUpdateExceptionActionResponse() => new ActionResponse<T>
-    {
-        Message = "Ya existe el registro."
     };
 }

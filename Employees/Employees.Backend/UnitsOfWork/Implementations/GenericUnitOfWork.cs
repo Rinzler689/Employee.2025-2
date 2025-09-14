@@ -1,6 +1,7 @@
 ﻿using Employees.Backend.Repositories.Interfaces;
 using Employees.Backend.UnitsOfWork.Interfaces;
 using Employees.Shared.Responses;
+using System.Linq.Expressions;
 
 namespace Employees.Backend.UnitsOfWork.Implementations;
 
@@ -27,4 +28,8 @@ public class GenericUnitOfWork<T> : IGenericUnitOfWork<T> where T : class
 
     public virtual async Task<ActionResponse<T>> UpdateAsync(T entity) => await
         _repository.UpdateAsync(entity);
+
+    //4
+    public virtual async Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate) =>
+        await _repository.GetAsync(predicate);
 }

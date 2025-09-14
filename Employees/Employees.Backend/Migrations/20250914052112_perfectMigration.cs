@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Employees.Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class initialDb : Migration
+    public partial class perfectMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
