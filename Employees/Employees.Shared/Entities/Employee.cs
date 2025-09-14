@@ -28,7 +28,7 @@ public class Employee
     public DateTime? HireDate { get; set; }
 
     [Display(Name = "Salario")]
-    [Range(1000000, double.MaxValue, ErrorMessage = "El campo {0} debe ser mínimo de $1,000,000.")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-    public decimal Salary { get; set; }
+    [Range(1000000, double.MaxValue, ErrorMessage = "El campo {0} debe ser mínimo de $1,000,000.")]
+    public decimal? Salary { get; set; }
 }
