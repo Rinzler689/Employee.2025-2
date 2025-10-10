@@ -1,39 +1,29 @@
-﻿using Employees.Backend.Data;
-using Employees.Backend.UnitsOfWork.Interfaces;
+﻿using Employees.Backend.UnitsOfWork.Interfaces;
 using Employees.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Employees.Backend.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class EmployeesController : GenericController<Employee>
+namespace Employees.Backend.Controllers
 {
-    private readonly IGenericUnitOfWork<Employee> _employeeUnitOfWork;
-
-    public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork) : base(unitOfWork)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class EmployeesController : GenericController<Employee>
     {
-        _employeeUnitOfWork = unitOfWork;
-    }
+        private readonly IEmployeesUnitOfWork _employeesUnitOfWork;
 
-    [HttpGet("search")]
-    public async Task<ActionResult<IEnumerable<Employee>>> GetByNameOrLastName([FromQuery] string text)
-    {
-        if (string.IsNullOrWhiteSpace(text))
+        public EmployeesController(IGenericUnitOfWork<Employee> unitOfWork, IEmployeesUnitOfWork employeesUnitOfWork)
+            : base(unitOfWork)
         {
-            return BadRequest("El parámetro de búsqueda no puede estar vacío.");
+            _employeesUnitOfWork = employeesUnitOfWork;
         }
 
-        var employeesResponse = await _employeeUnitOfWork.GetAsync(
-            e => e.FirstName.Contains(text) || e.LastName.Contains(text)
-        );
-
-        if (!employeesResponse.WasSuccess || !(employeesResponse.Result?.Any() ?? false))
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByNameLastName(string search)
         {
-            return NotFound("No se encontraron empleados con ese criterio de búsqueda.");
-        }
+            var action = await _employeesUnitOfWork.GetByNameLastNameAsync(search);
+            if (action.WasSuccess)
+                return Ok(action.Result);
 
-        return Ok(employeesResponse.Result);
+            return NotFound(action.Message);
+        }
     }
 }

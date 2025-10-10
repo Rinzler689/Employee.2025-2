@@ -105,27 +105,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
     }
 
-    public async Task<ActionResponse<IEnumerable<T>>> GetAsync(Expression<Func<T, bool>> predicate)
-    {
-        try
-        {
-            var results = await _context.Set<T>().Where(predicate).ToListAsync();
-            return new ActionResponse<IEnumerable<T>>
-            {
-                WasSuccess = true,
-                Result = results
-            };
-        }
-        catch (Exception ex)
-        {
-            return new ActionResponse<IEnumerable<T>>
-            {
-                WasSuccess = false,
-                Message = ex.Message
-            };
-        }
-    }
-
     private ActionResponse<T> ExceptionActionRespose(Exception exception) => new ActionResponse<T>
     {
         Message = exception.Message
