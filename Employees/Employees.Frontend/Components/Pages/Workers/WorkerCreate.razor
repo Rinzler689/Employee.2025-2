@@ -1,3 +1,7 @@
-﻿<h3>WorkerCreate</h3>
-
-
+﻿<MudDialog>
+    <DialogContent>
+        <WorkerForm Employee="employee"
+                    OnValidSubmit="CreateAsync"
+                    ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>
