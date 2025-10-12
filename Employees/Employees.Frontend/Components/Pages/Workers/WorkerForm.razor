@@ -1,67 +1,41 @@
 ﻿<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
-
-    <!-- Nombre -->
     <MudTextField Label="Nombre"
                   @bind-Value="@Employee.FirstName"
                   For="@(() => Employee.FirstName)"
-                  Class="mb-4"
-                  Required="true" />
-
-    <!-- Apellido -->
+                  Class="mb-4" />
     <MudTextField Label="Apellido"
                   @bind-Value="@Employee.LastName"
                   For="@(() => Employee.LastName)"
-                  Class="mb-4"
-                  Required="true" />
+                  Class="mb-4" />
+    <MudTextField Label="Activo"
+                  @bind-Value="@Employee.IsActive"
+                  For="@(() => Employee.IsActive)"
+                  Class="mb-4" />
+    <MudTextField Label="Fecha de Contratación"
+                  @bind-Value="@Employee.HireDate"
+                  For="@(() => Employee.HireDate)"
+                  Class="mb-4" />
+    <MudTextField Label="Salario"
+                  @bind-Value="@Employee.Salary"
+                  For="@(() => Employee.Salary)"
+                  Class="mb-4" />
 
-    <!-- Estado del Empleado -->
-    <MudRadioGroup T="bool"
-                   @bind-SelectedValue="@Employee.IsActive"
-                   Label="Estado del Empleado"
-                   Class="mb-4">
-        <MudRadio T="bool" Value="true">Activo</MudRadio>
-        <MudRadio T="bool" Value="false">Inactivo</MudRadio>
-    </MudRadioGroup>
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.ArrowBack"
+               Color="Color.Info"
+               OnClick="ReturnAction">
+        <MudHidden xs="true">
+            Cancelar
+        </MudHidden>
+    </MudButton>
 
-    <!-- Fecha de Contratación -->
-    <MudDatePicker Label="Fecha de Contratación"
-                   @bind-Date="@Employee.HireDate"
-                   For="@(() => Employee.HireDate)"
-                   Class="mb-4"
-                   Clearable="true" />
-
-    <!-- Salario -->
-    <MudNumericField T="decimal?"
-                     Label="Salario"
-                     @bind-Value="@Employee.Salary"
-                     For="@(() => Employee.Salary)"
-                     Class="mb-4"
-                     Adornment="Adornment.Start"
-                     AdornmentIcon="@Icons.Material.Filled.AttachMoney"
-                     Required="true"
-                     Min="1000000" />
-
-    <!-- Botones -->
-    <MudDivider Class="my-4" />
-
-    <MudStack Row="true" Spacing="2">
-        <MudButton Variant="Variant.Outlined"
-                   StartIcon="@Icons.Material.Filled.ArrowBack"
-                   Color="Color.Info"
-                   OnClick="ReturnAction">
-            <MudHidden xs="true">
-                Cancelar
-            </MudHidden>
-        </MudButton>
-
-        <MudButton Variant="Variant.Outlined"
-                   StartIcon="@Icons.Material.Filled.Check"
-                   Color="Color.Primary"
-                   ButtonType="ButtonType.Submit">
-            <MudHidden xs="true">
-                Guardar Cambios
-            </MudHidden>
-        </MudButton>
-    </MudStack>
+    <MudButton Variant="Variant.Outlined"
+               StartIcon="@Icons.Material.Filled.Check"
+               Color="Color.Primary"
+               ButtonType="ButtonType.Submit">
+        <MudHidden xs="true">
+            Guardar Cambios
+        </MudHidden>
+    </MudButton>
 </EditForm>

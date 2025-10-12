@@ -29,6 +29,6 @@ public partial class WorkerCreate
 
     private void Return()
     {
-        NavigationManager.NavigateTo("/Employees");
+        NavigationManager.NavigateTo("/employees");
     }
 }

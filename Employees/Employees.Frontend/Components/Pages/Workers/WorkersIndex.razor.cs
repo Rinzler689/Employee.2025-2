@@ -146,7 +146,7 @@ public partial class WorkersIndex
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("/Employees");
+                NavigationManager.NavigateTo("/employees");
             }
             else
             {

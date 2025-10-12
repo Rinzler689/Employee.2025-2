@@ -1,3 +1,14 @@
-﻿<h3>WorkerEdit</h3>
+﻿@if (employee is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <WorkerForm Employee="employee" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
 
 
