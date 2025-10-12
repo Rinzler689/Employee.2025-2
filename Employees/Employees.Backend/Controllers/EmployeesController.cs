@@ -38,14 +38,4 @@ public class EmployeesController : GenericController<Employee>
         }
         return BadRequest();
     }
-
-    [HttpGet("search")]
-    public async Task<IActionResult> GetByNameLastName(string search)
-    {
-        var action = await _employeesUnitOfWork.GetByNameLastNameAsync(search);
-        if (action.WasSuccess)
-            return Ok(action.Result);
-
-        return NotFound(action.Message);
-    }
 }

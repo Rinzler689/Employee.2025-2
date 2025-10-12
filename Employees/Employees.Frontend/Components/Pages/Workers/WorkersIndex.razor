@@ -38,7 +38,7 @@ else
             <MudTd>@context.FirstName</MudTd>
             <MudTd>@context.LastName</MudTd>
             <MudTd>@context.IsActive</MudTd>
-            <MudTd>@context.HireDate</MudTd>
+            <MudTd>@context.HireDate?.ToString("dd/MM/yyyy")</MudTd>
             <MudTd>@context.Salary</MudTd>
             <MudTd>
                 <MudTooltip Text="Editar">
