@@ -16,7 +16,7 @@ public partial class WorkersIndex
     private int totalRecords = 0;
     private bool loading;
     private const string baseUrl = "api/employees";
-    private string infoFormat = "{first_item}-{last_item} de {all_items}";
+    private string infoFormat = "{first_item}-{last_item} => {all_items}";
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
@@ -45,7 +45,6 @@ public partial class WorkersIndex
         {
             var message = await responseHttp.GetErrorMessageAsync();
             Snackbar.Add(message!, Severity.Error);
-            loading = false;
             return;
         }
 
@@ -114,7 +113,7 @@ public partial class WorkersIndex
         }
 
         var result = await dialog.Result;
-        if (!result!.Canceled)
+        if (result!.Canceled!)
         {
             await LoadTotalRecordsAsync();
             await table.ReloadServerData();
